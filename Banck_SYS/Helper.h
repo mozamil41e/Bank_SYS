@@ -24,7 +24,7 @@ namespace config
     const string mark = "#__#";
     const string Tapspace = "\n";
 
-    const string Shape = "$";
+    const string Shape = "*";
 
     const size_t countP = 60;
 
