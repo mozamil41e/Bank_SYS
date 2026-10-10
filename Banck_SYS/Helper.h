@@ -22,11 +22,11 @@ namespace config
     //const string UsersFile = "Users.txt";
 
     const string mark = "#__#";
-    const string Tapspace = "\n\t\t\t\t";
+    const string Tapspace = "\n";
 
-    const string Shape = "*";
+    const string Shape = "$";
 
-    const size_t countP = 52;
+    const size_t countP = 60;
 
     const vector<string> OptionsMainMenu = { "Show All Users .","Show User .","Add New Use .","Exit ." };
     const vector<string> OptionsUserMenu = { "Update Users .","Delete User .","Back ." };
@@ -58,11 +58,11 @@ namespace dt
 namespace input
 {
     template <typename T>
-    T GetNumber(string message = "Select option numder ? ")
+    T GetNumber(string message = config::Tapspace +"Select option numder ? ")
     {
         T num;
 
-        cout << "\n\t\t\t\t" << message;
+        cout << config::Tapspace << message;
 
         cin >> num;
 
@@ -75,7 +75,7 @@ namespace input
                 '\n'
             );
 
-            cout << "\n\t\t\t\tInvalid number, please enter a valid one: ";
+            helper::Message("Invalid number, please enter a valid one: "," Erorr ");
 
             cin >> num;
         }
@@ -101,11 +101,11 @@ namespace input
             if (IsBetween(num, from, to))
                 return num;
 
-            cout << "\n\t\t\t\tPlease enter a number between "
-                << from
-                << " and "
-                << to
-                << ": ";
+            helper::Message("Please enter a number between "
+                + to_string(from)
+                + " and "
+                + to_string(to)
+                + ": ", " Alert ");
         }
     }
 
@@ -186,6 +186,11 @@ namespace helper
     void PrintText(string mess);
     void PrintText(string mess,bool pause);
 
+    std::string PrintOption(string num, string option);
+    void PrintOption(const vector<string>& options);
+    void PrintMenuBank();
+    void PrintOptionUser();
+
     void Message(string mess, string type );
 
     std::string ConfirmMessage(string mess);
@@ -200,9 +205,6 @@ namespace helper
     void PrintAllUsersData(
         const vector<UserStruct>& vUsers
     );
-    std::string PrintOption(string num,string option);
-    void PrintOption(const vector<string>& options);
-    void PrintMenuBank();
-    void PrintOptionUser();
+    
 }
 

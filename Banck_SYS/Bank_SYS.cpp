@@ -97,7 +97,7 @@ void runApp()
 
             case 4:
             {
-                cout << "\n\t\t\t\texit...\n\n";
+                cout << config::Tapspace << "exit...\n\n";
                 return;
             }
         }

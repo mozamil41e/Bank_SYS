@@ -82,7 +82,7 @@ namespace input
     {
         string value;
 
-        cout << "\n\t\t\t\t" << message;
+        cout << config::Tapspace << message;
         getline(cin >> ws, value);
 
         return value;
@@ -126,15 +126,15 @@ namespace helper
     string ConvertUserStructToLine(const UserStruct& user)
     {
         return user.accountNumder +
-            helper::mark +
+            config::mark +
             user.name +
-            helper::mark +
+            config::mark +
             user.username +
-            helper::mark +
+            config::mark +
             user.password +
-            helper::mark +
+            config::mark +
             to_string(user.balancs) +
-            helper::mark +
+            config::mark +
             dt::DateNow();
     }
 
@@ -150,13 +150,13 @@ namespace helper
         size_t start = 0;
         size_t pos = 0;
 
-        while ((pos = S1.find(helper::mark, start)) != string::npos)
+        while ((pos = S1.find(config::mark, start)) != string::npos)
         {
             string sWord = S1.substr(start, pos - start);
 
             vString.push_back(sWord);
 
-            start = pos + helper::mark.length();
+            start = pos + config::mark.length();
         }
 
         // Add last field
@@ -193,11 +193,11 @@ namespace helper
 
     void PrintText(string mess = "Please Any Key For GoTo Menu : ")
     {
-        cout << "\n\n\t\t\t\t" + mess;
+        cout << config::Tapspace << mess;
     }
     void PrintText(string mess = "Please Any Key For GoTo Menu : ",bool pause = true)
     {
-        cout << "\n\n\t\t\t\t" + mess;
+        cout << config::Tapspace << mess;
         if (pause) {
             system("pause>0");
         }
@@ -213,21 +213,21 @@ namespace helper
         string s = "";
         for (short i = 1;i < count;i++)
             s += " ";
-        return s+=Shape;
+        return s+=config::Shape;
     }
 
     void PrintShape() {
-        cout << "\n\t\t\t\t" << Shapeloop("*", countP); //****************************************************\n";
+        cout << config::Tapspace << Shapeloop(config::Shape, config::countP); //****************************************************\n";
     }
     void PrintShape(string word) {
-        string shape =  "\n\t\t\t\t"+ Shapeloop("*",4) + word + Shapeloop("*", countP - 4 - word.length())  + "\n";
+        string shape = config::Tapspace + Shapeloop(config::Shape, 4) + word + Shapeloop(config::Shape, config::countP - 4 - word.length());// +"\n";
         cout << shape;
     }
 
     void Message(string mess, string word = " Success ") {
         //cout << "\n\t\t\t\t**** " << setw(7) << left << type << " ********************************************\n";
         PrintShape(word);
-        cout << "\n\t\t\t\t*->" << mess << Shapeloop("*", countP- 3- mess.length(), true) << "\n";
+        cout << config::Tapspace << config::Shape + mess << Shapeloop(config::Shape, config::countP - config::Shape.length() - mess.length(), true);// << "\n";
         PrintShape();
         return;
     }
@@ -235,8 +235,8 @@ namespace helper
     std::string ConfirmMessage(string mess) {
         //cout << "\n\t\t\t\t**** Confirmation ********************************************\n";
         PrintShape(" Confirmation ");
-        cout << "\n\t\t\t\t*-> " << mess;
-        return input::ReadString("*-> ");
+        cout << config::Tapspace << config::Shape << " " << mess;
+        return input::ReadString(config::Shape + "->");
     }
 
     void ShowUser(const UserStruct& user)
@@ -246,10 +246,24 @@ namespace helper
             return;
         }
         PrintShape();
-        cout << setw(23) << "\n\t\t\t\t* Account Number " << " : " << setw(30) << left << user.accountNumder << "*\n";
-        cout << setw(23) << "\t\t\t\t* Account name " << " : " << setw(29) << left << user.name << "*\n";
-        cout << setw(21) << "\t\t\t\t* Account username " << " : " << setw(29) << left << user.username << "*\n";
-        cout << setw(23) << "\t\t\t\t* Account balancs " << " : " << setw(29) << left << user.balancs << "*";
+
+        std::string s = "";
+
+        s = config::Shape + " Account Number " + "  : " + user.accountNumder;
+        cout << config::Tapspace << s <<Shapeloop(config::Shape, config::countP - s.length(), true);
+
+		s = config::Shape + " Account name " + "    : " + user.name;
+		cout << config::Tapspace << s << Shapeloop(config::Shape, config::countP - s.length(), true);
+
+		s = config::Shape + " Account username " + ": " + user.username;
+		cout << config::Tapspace << s << Shapeloop(config::Shape, config::countP - s.length(), true);
+
+		s = config::Shape + " Account balancs " + " : " + to_string(user.balancs);
+		cout << config::Tapspace << s << Shapeloop(config::Shape, config::countP - s.length(), true);
+
+		s = config::Shape + " Created At " + "      : " + user.Cerated_at;
+        cout << config::Tapspace << s << Shapeloop(config::Shape, config::countP - s.length(), true);
+
         PrintShape();
         return;
     }
@@ -276,7 +290,7 @@ namespace helper
 
     void PrintAllUsersData(const vector<UserStruct>& vUsers)
     {
-        cout << "\n\t\t\t\t\tClient List ("
+        cout << config::Tapspace << "Client List ("
             << vUsers.size()
             << ") Client(s).";
 
@@ -306,8 +320,8 @@ namespace helper
     }
 
     std::string PrintOption(string num,string option) {
-        string s = Shape + "  [" + num + "] " + option;
-        return Tapspace + s + Shapeloop(Shape, countP - s.length(), true);
+        string s = config::Shape + "  [" + num + "] " + option;
+        return config::Tapspace + s + Shapeloop(config::Shape, config::countP - s.length(), true);
     }
     void PrintOption(const vector<string>& options) {
         short i = 1;
@@ -324,7 +338,7 @@ namespace helper
 
         PrintShape();
 
-        PrintOption(OptionsMainMenu);
+        PrintOption(config::OptionsMainMenu);
 
         PrintShape();
 
@@ -332,9 +346,9 @@ namespace helper
 
     void PrintOptionUser()
     {
-        PrintShape();
+        PrintShape(" User Menu ");
 
-        PrintOption(OptionsUserMenu);
+        PrintOption(config::OptionsUserMenu);
 
         PrintShape();
        
